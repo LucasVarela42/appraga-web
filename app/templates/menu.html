@@ -1,0 +1,81 @@
+<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+            md-whiteframe="2" md-disable-backdrop>
+  <md-toolbar class="md-medium" md-theme="{{ dynamicTheme }}" md-theme-watch="true">
+    <div class="md-toolbar-tools" ng-controller="MenuCtrl">
+      <md-button class="md-icon-button" aria-label="Menu" ng-click="toggleLeft()" hide-gt-sm>
+        <ng-md-icon icon="menu"></ng-md-icon>
+      </md-button>
+      <h2>Appraga</h2>
+    </div>
+  </md-toolbar>
+  <md-content flex>
+    <md-list>
+      <md-list-item ng-href="#!/app/pragas" ng-click="selectedTab()">
+        <span><h4> Pragas </h4></span>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item ng-href="#!/app/plantas" ng-click="selectedTab()">
+        <span><h4> Plantas </h4></span>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item ng-href="#!/app/manejos" ng-click="selectedTab()">
+        <span><h4> Manejos </h4></span>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item ng-href="#!/app/cadastros/praga" ng-click="selectedTab()">
+        <span><h4> Cadastros</h4></span>
+      </md-list-item>
+      <md-divider></md-divider>
+    </md-list>
+  </md-content>
+  <span></span>
+  <div class="button-theme" layout="row" flex-order="1" layout-padding layout-align="start center">
+    <md-button aria-label="ThemePink" class="md-fab md-primary md-mini pinkTheme" md-theme="pink" ng-click="theme('pink')">
+    </md-button>
+    <md-button aria-label="ThemeBlue" class="md-fab md-primary md-mini blueTheme" md-theme="blue" ng-click="theme('blue')">
+    </md-button>
+    <md-button aria-label="ThemeBrown" class="md-fab md-primary md-mini brownTheme" md-theme="brown" ng-click="theme('brown')">
+    </md-button>
+    <md-button aria-label="ThemeBlueGray" class="md-fab md-primary md-mini blueGrayTheme" md-theme="blue-grey" ng-click="theme('blue-grey')">
+    </md-button>
+    <md-button aria-label="ThemeDefault" class="md-fab md-primary md-mini default" md-theme="default" ng-click="dynamicTheme = theme('default')">
+    </md-button>
+  </div>
+</md-sidenav>
+
+<div flex layout="column">
+  <md-toolbar class="md-medium" md-theme="{{ dynamicTheme }}" md-theme-watch="true">
+    <div class="md-toolbar-tools" ng-controller="MenuCtrl">
+      <md-button class="md-icon-button" aria-label="Menu" ng-click="toggleLeft()" hide-gt-sm>
+        <!-- <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Menu</md-tooltip> -->
+        <ng-md-icon icon="menu"></ng-md-icon>
+      </md-button>
+      <h2 hide-gt-sm>MENU</h2>
+      <span flex></span>
+
+      <!-- <md-input-container md-no-float ng-show="showSearch">
+        <input type="search" ng-model="pesquisa" aria-label="pesquisa-input" placeholder="pesquise algo...">
+      </md-input-container> -->
+
+      <md-button class="md-icon-button" aria-label="Pesquisa" ng-click="showSearch = !showSearch">
+        <!-- <md-tooltip md-direction="left" md-visible="tooltipVisible">Em desenvolvimento</md-tooltip> -->
+        <ng-md-icon icon="search"></ng-md-icon>
+      </md-button>
+
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout="column">
+    <div layout="column" layout-align="center center" ng-show="isLoading">
+      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+      <!-- <h6>Carregando...</h6> -->
+    </div>
+    <div flex="noshrink">
+      <div ui-view="pragas"></div>
+      <div ui-view="plantas"></div>
+      <div ui-view="manejos"></div>
+      <div ui-view="cadastro"></div>
+    </div>
+  </md-content>
+
+</div>

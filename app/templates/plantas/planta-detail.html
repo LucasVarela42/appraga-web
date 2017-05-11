@@ -1,0 +1,61 @@
+<md-dialog aria-label="Detalhes" class="dialogDetail md-medium md-primary" md-theme="{{ dynamicTheme }}" md-theme-watch>
+  <div flex="noshrink" layout="column" layout-margin layout-align="center center" ng-show="isLoading">
+    <md-progress-circular md-mode="indeterminate" md-diameter="80"></md-progress-circular>
+    <div>Carregando...</div>
+  </div>
+  <form ng-cloak ng-repeat="planta in plantaDetalhada">
+    <md-toolbar class="md-medium md-primary" md-theme="{{ dynamicTheme }}" md-theme-watch="true">
+      <div class="md-toolbar-tools">
+        <h2>{{planta.nome}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="hide()">
+          <ng-md-icon icon="close" aria-label="Fechar"></ng-md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content" ng-cloak>
+        <div class="md-block" layout="column" layout-align="center center">
+          <h2>{{planta.nome}}</h2>
+          <!-- <div class="md-block" layout="column" layout-align="center center" ng-controller="CarouselCtrl">
+          <jk-carousel
+          data="dataArray"
+          item-template-url="'templates/item-template.html'"
+          max-width="600"
+          max-height="350">
+        </jk-carousel>
+      </div> -->
+      <p><img data-ng-src="{{planta.imagem[0]}}" alt="planta" layout-fill ng-cloak></p>
+      <p>{{planta.resumo}}</p>
+      <p ng-bind-html="planta.descricao | linebreak | to_trusted"></p>
+    </div>
+
+    <md-divider layout-margin></md-divider>
+    <div class="md-block gridListDynamicTiles" layout-margin flex-gt-sm ng-cloak>
+      <label>Pragas</label>
+      <md-grid-list md-cols-xs="2" md-cols-sm="4" md-cols-md="5" md-cols-gt-md="6" md-cols-gt-lg="8"
+      md-row-height-gt-md="4:3" md-row-height="4:3"
+      md-gutter="12px" md-gutter-gt-sm="8px">
+      <md-grid-tile ng-repeat="praga in plantaSelecionada">
+        <img data-ng-src="{{praga.imagem[0]}}" alt="praga" layout-fill>
+        <md-grid-tile-footer>
+          <h3>{{praga.nome}}</h3>
+        </md-grid-tile-footer>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+</div>
+</md-dialog-content>
+
+<!-- <md-dialog-actions layout="row">
+  <span flex></span>
+  <md-button ng-click="answer('not useful')">
+    Anterior
+  </md-button>
+  <md-button ng-click="answer('useful')">
+    Proximo
+  </md-button>
+</md-dialog-actions> -->
+</form>
+</md-dialog>
