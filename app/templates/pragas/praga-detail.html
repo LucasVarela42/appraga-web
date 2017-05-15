@@ -18,17 +18,9 @@
       <div class="md-dialog-content" ng-cloak>
         <div class="md-block" layout="column" layout-align="center center">
           <h2>{{praga.nome}}</h2>
-          <!-- <div class="md-block" layout="column" layout-align="center center" ng-controller="CarouselCtrl">
-          <jk-carousel
-          data="dataArray"
-          item-template-url="'templates/item-template.html'"
-          max-width="600"
-          max-height="350">
-        </jk-carousel>
-      </div> -->
-      <p><img data-ng-src="{{praga.imagem[0]}}" alt="praga" layout-fill ng-cloak></p>
-      <p>{{praga.cientifico}}</p>
-      <p ng-bind-html="praga.descricao | linebreak | to_trusted"></p>
+          <p><img data-ng-src="{{praga.imagem[0]}}" alt="praga" layout-fill ng-cloak></p>
+          <p>{{praga.cientifico}}</p>
+          <p ng-bind-html="praga.descricao | linebreak | to_trusted"></p>
     </div>
 
     <md-divider layout-margin></md-divider>
