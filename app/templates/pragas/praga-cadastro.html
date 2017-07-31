@@ -51,6 +51,15 @@
               <div ng-message="required">Isso é obrigatório.</div>
             </div>
           </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm layout="row">
+            <label>Métodos de manejo</label>
+            <textarea name="descricaoManejo" required md-asterisk ng-model="cadastro.descricaoManejo" rows="5" md-select-on-focus></textarea>
+            <div ng-messages="form.cadastro.descricaoManejo.$error">
+              <div ng-message="required">Isso é obrigatório.</div>
+            </div>
+          </md-input-container>
+
         </div>
         <div class="md-block gridListDynamicTiles" flex-gt-sm ng-cloak>
           <label>Escolha as plantas que esta praga afeta</label>
