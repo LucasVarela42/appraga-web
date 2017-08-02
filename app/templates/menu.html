@@ -14,13 +14,17 @@
         <span><h4> Pragas </h4></span>
       </md-list-item>
       <md-divider></md-divider>
+      <md-list-item ng-href="#!/app/doencas" ng-click="selectedTab()">
+        <span><h4> Doenças </h4></span>
+      </md-list-item>
+      <md-divider></md-divider>
       <md-list-item ng-href="#!/app/plantas" ng-click="selectedTab()">
         <span><h4> Plantas </h4></span>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item ng-href="#!/app/manejos" ng-click="selectedTab()">
+      <!-- <md-list-item ng-href="#!/app/manejos" ng-click="selectedTab()">
         <span><h4> Manejos </h4></span>
-      </md-list-item>
+      </md-list-item> -->
       <md-divider></md-divider>
       <md-list-item ng-href="#!/app/cadastros/praga" ng-click="selectedTab()">
         <span><h4> Cadastros</h4></span>
@@ -72,6 +76,7 @@
     </div>
     <div flex="noshrink">
       <div ui-view="pragas"></div>
+      <div ui-view="doencas"></div>
       <div ui-view="plantas"></div>
       <div ui-view="manejos"></div>
       <div ui-view="cadastro"></div>

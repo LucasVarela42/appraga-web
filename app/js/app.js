@@ -46,6 +46,16 @@
         }
       }
     })
+    .state('app.cadastro.doenca', {
+      // cache: false,
+      url: '/doenca',
+      views: {
+        'cadastro-doenca': {
+          templateUrl: 'templates/doencas/doenca-cadastro.html',
+          controller: 'CadastroDoencaCtrl'
+        }
+      }
+    })
     .state('app.cadastro.planta', {
       // cache: false,
       url: '/planta',
@@ -74,6 +84,17 @@
         'pragas': {
           templateUrl: 'templates/pragas/pragas.html',
           // controller: 'AppragaCtrl'
+        }
+      }
+    })
+    .state('app.doencas', {
+      // cache: false,
+      // url: '/doencas/:plantaId',
+      url: '/doencas',
+      views: {
+        'doencas': {
+          templateUrl: 'templates/doencas/doencas.html',
+          // controller: 'ApdoencaCtrl'
         }
       }
     })

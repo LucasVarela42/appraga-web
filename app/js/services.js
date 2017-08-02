@@ -68,6 +68,72 @@
     return pragas;
   });
 
+  app.service('doencasServices', function($q, $http){
+    var doencas = this;
+    doencas.listaDoencas = [];
+    doencas.doencaDetalhada = {};
+    doencas.doencaSelecionada = [];
+
+    doencas.getTodasDoencas = function(){
+      var defer = $q.defer();
+      // $http.get('https://api.mlab.com/api/1/databases/appraga/collections/doencas?apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
+      $http.get('https://api.mlab.com/api/1/databases/appraga/collections/doencas?apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
+      .then(function(response){
+        if (Object.keys(response.data).length == 0 ) {
+          defer.reject(response.data);
+        } else {
+          angular.forEach(response.data, function(carregar){
+            doencas.listaDoencas.push(carregar);
+            defer.resolve(carregar);
+          });
+        }
+      }, function(error) {
+        // alert("Server returns response with an error status.");
+        // console.log('error:', error);
+        defer.reject(error);
+      });
+      return defer.promise;
+    }
+
+    doencas.getDoencaDetalhada = function(doencaId){
+      var defer = $q.defer();
+      var doencaIdJson = angular.toJson(doencas.listaDoencas[doencaId]._id);
+      // $http.get('https://api.mlab.com/api/1/databases/appraga/collections/doencas?q={%22id%22:%20%22'+ doencaId +'%22}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
+      $http.get('https://api.mlab.com/api/1/databases/appraga/collections/doencas?q={_id:'+doencaIdJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
+      .then(function(response){
+          doencas.doencaDetalhada = response.data;
+          defer.resolve(response);
+      }, function(response) {
+        alert("Server returns response with an error status.");
+        defer.reject(response);
+      });
+      return defer.promise;
+    }
+
+    doencas.getPlantasOfDoenca = function(doencaId){
+      var defer = $q.defer();
+      var plantaIdJson;
+      angular.forEach(doencas.listaDoencas[doencaId].plantas, function(planta){
+        plantaIdJson = angular.toJson(planta);
+
+        $http.get('https://api.mlab.com/api/1/databases/appraga/collections/plantas?q={_id:'+plantaIdJson+'}&s={"_id": 1}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
+        .then(function(response){
+          angular.forEach(response.data, function(carregar){
+            doencas.doencaSelecionada.push(carregar);
+            defer.resolve(response);
+          });
+        }, function(response) {
+          alert("Server returns response with an error status.");
+          defer.reject(response);
+        });
+      });
+      return defer.promise;
+    }
+
+    // console.log("Chegou doencasServices",doencas);
+    return doencas;
+  });
+
   app.service('plantasServices', function($q, $http){
     var plantas = this;
     plantas.listaPlantas = [];
@@ -241,6 +307,29 @@
     }
     // console.log(pragas);
     return pragas;
+  });
+
+  app.service('cadastroDoencaServices', function($q, $http){
+    var doencas = this;
+    doencas.cadastrarDoenca = {};
+
+    doencas.postDoenca = function(cadastro){
+      var defer = $q.defer();
+      if (Object.keys(cadastro).length == 0 ) {
+        alert("Empty Object!")
+      }else{
+        var cadastroJson = angular.toJson(cadastro);
+        $http.post('https://api.mlab.com/api/1/databases/appraga/collections/doencas?apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', cadastroJson)
+        .then(function(response){
+          doencas.cadastrarDoenca = response;
+          defer.resolve(response);
+          // console.log(doencas.cadastrardoenca);
+        });
+      }
+      return defer.promise;
+    }
+    // console.log(doencas);
+    return doencas;
   });
 
   app.service('cadastroPlantaServices', function($q, $http){
