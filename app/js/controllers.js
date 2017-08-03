@@ -412,6 +412,7 @@
     $scope.checkbox = { checked: [] };
     $scope.cadastro = { plantas: [], imagem: [] };
     $scope.listaPlantas = [];
+    $scope.plantaSelecionada = [];
 
     $scope.getPlanta = function(){
       $scope.listaPlantas = plantasServices.listaPlantas;
@@ -434,10 +435,27 @@
     }, true);
     function getPlantaByIndex(index) {
       if ($scope.listaPlantas.indexOf(index) == -1) {
+        $scope.plantaSelecionada = $scope.listaPlantas[index];
         // console.log($scope.listaPlantas[index]._id);
         return $scope.listaPlantas[index]._id;
       }
     };
+
+    $scope.atualizarPlanta = function(doenca) {
+      $scope.plantaAtualizada = [];
+      $scope.doencaAtual = doenca.data._id;
+      $scope.plantaAtualizada = $scope.plantaSelecionada.pragas.push($scope.doencaAtual._id);
+      // atualizaServices.atualizaPlanta($scope.cadastro)
+      // .then(function(res) {
+      //
+      // }
+      console.log('doencaAtual');
+      console.log($scope.doencaAtual);
+      console.log('plantaSelecionada');
+      console.log($scope.plantaSelecionada);
+      console.log('plantaAtualizada');
+      console.log($scope.plantaAtualizada);
+    }
 
     $scope.showConfirm = function(ev) {
       // Appending dialog to document.body to cover sidenav in docs app
@@ -464,6 +482,8 @@
       $scope.getImage();
       cadastroDoencaServices.postDoenca($scope.cadastro)
       .then(function(res) {
+        // console.log(res);
+        $scope.atualizarPlanta(res);
         // $scope.cadastro = cadastrodoencaServices.cadastrardoenca;
         $mdDialog.show(
           $mdDialog.alert()

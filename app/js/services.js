@@ -323,7 +323,7 @@
         .then(function(response){
           doencas.cadastrarDoenca = response;
           defer.resolve(response);
-          // console.log(doencas.cadastrardoenca);
+          // console.log(doencas.cadastrarDoenca);
         });
       }
       return defer.promise;
@@ -379,6 +379,51 @@
     // console.log(pragas);
     return manejos;
   });
+
+  app.service('atualizaServices', function($q, $http){
+    var plantas = this;
+    plantas.atualizaPlanta = {};
+
+    // doencas.putDoenca = function(cadastro){
+    //   var defer = $q.defer();
+    //   if (Object.keys(cadastro).length == 0 ) {
+    //     alert("Empty Object!")
+    //   }else{
+    //     var cadastroJson = angular.toJson(cadastro);
+    //     $http.put('https://api.mlab.com/api/1/databases/appraga/collections/doencas?apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', cadastroJson)
+    //     .then(function(response){
+    //       doencas.modificarDoenca = response;
+    //       defer.resolve(response);
+    //       // console.log(doencas.cadastrardoenca);
+    //     });
+    //   }
+    //   return defer.promise;
+    // }
+
+    plantas.atualizaPlanta = function(atualiza, _id){
+      console.log(atualiza);
+      console.log(_id);
+      var defer = $q.defer();
+      if (Object.keys(atualiza).length == 0 || _id == '') {
+        alert("Empty Object!")
+      }else{
+        var atualizaJson = angular.toJson(atualiza);
+        var _idJson = angular.toJson(_id);
+        console.log("Service",atualizaJson);
+        $http.put('https://api.mlab.com/api/1/databases/appraga/collections/planta?q={_id:'+_idJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', atualizaJson)
+        .then(function(response){
+          plantas.atualizaPlanta = response;
+          defer.resolve(response);
+          console.log(plantas.atualizaPlanta);
+        });
+      }
+      return defer.promise;
+    }
+
+    console.log(doencas);
+    return plantas;
+  });
+
 
   // app.service('removerPlantaServices', function($q, $http){
   //   var plantas = this;
