@@ -402,7 +402,7 @@
     $scope.init();
   });
 
-  appctrl.controller('CadastroDoencaCtrl', function($scope, $state, $mdDialog, cadastroDoencaServices, doencasServices, plantasServices, SharedObjects) {
+  appctrl.controller('CadastroDoencaCtrl', function($scope, $state, $mdDialog, cadastroDoencaServices, doencasServices, plantasServices, atualizaServices, SharedObjects) {
     $scope.init = function(){
       $scope.getPlanta();
     };
@@ -442,19 +442,23 @@
     };
 
     $scope.atualizarPlanta = function(doenca) {
-      $scope.plantaAtualizada = [];
+      // $scope.plantaAtualizada = [];
       $scope.doencaAtual = doenca.data._id;
-      $scope.plantaAtualizada = $scope.plantaSelecionada.pragas.push($scope.doencaAtual._id);
-      // atualizaServices.atualizaPlanta($scope.cadastro)
-      // .then(function(res) {
-      //
-      // }
-      console.log('doencaAtual');
-      console.log($scope.doencaAtual);
-      console.log('plantaSelecionada');
-      console.log($scope.plantaSelecionada);
-      console.log('plantaAtualizada');
+      $scope.plantaSelecionada.pragas.push($scope.doencaAtual);
       console.log($scope.plantaAtualizada);
+      atualizaServices.atualizaPlanta($scope.plantaSelecionada, $scope.plantaSelecionada._id)
+      .then(function(res) {
+        alert("Atualizou com sucesso!");
+        console.log(res);
+      });
+      // console.log('doencaAtual');
+      // console.log($scope.doencaAtual);
+      // console.log('plantaSelecionada');
+      // console.log($scope.plantaSelecionada);
+      // console.log('plantaAtualizada');
+      // console.log($scope.plantaAtualizada);
+
+      $scope.plantaAtualizada = [];
     }
 
     $scope.showConfirm = function(ev) {

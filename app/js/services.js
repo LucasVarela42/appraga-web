@@ -410,17 +410,17 @@
         var atualizaJson = angular.toJson(atualiza);
         var _idJson = angular.toJson(_id);
         console.log("Service",atualizaJson);
-        $http.put('https://api.mlab.com/api/1/databases/appraga/collections/planta?q={_id:'+_idJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', atualizaJson)
+        $http.put('https://api.mlab.com/api/1/databases/appraga/collections/plantas?q={_id:'+_idJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', atualizaJson)
         .then(function(response){
           plantas.atualizaPlanta = response;
           defer.resolve(response);
-          console.log(plantas.atualizaPlanta);
+          // console.log(plantas.atualizaPlanta);
         });
       }
       return defer.promise;
     }
 
-    console.log(doencas);
+    // console.log(doencas);
     return plantas;
   });
 
