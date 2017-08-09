@@ -326,12 +326,26 @@
         boolean && $scope.cadastro.plantas.push(getPlantaByIndex(index));
       });
     }, true);
-    function getPlantaByIndex (index) {
+    function getPlantaByIndex(index) {
       if ($scope.listaPlantas.indexOf(index) == -1) {
+        $scope.plantaSelecionada = $scope.listaPlantas[index];
         // console.log($scope.listaPlantas[index]._id);
         return $scope.listaPlantas[index]._id;
       }
     };
+
+    $scope.atualizarPlanta = function(doenca) {
+      // $scope.plantaAtualizada = [];
+      $scope.doencaAtual = doenca.data._id;
+      $scope.plantaSelecionada.pragas.push($scope.doencaAtual);
+      console.log($scope.plantaAtualizada);
+      atualizaServices.atualizaPlanta($scope.plantaSelecionada, $scope.plantaSelecionada._id)
+      .then(function(res) {
+        alert("Atualizou com sucesso!");
+        console.log(res);
+      });
+      $scope.plantaAtualizada = [];
+    }
 
     $scope.showConfirm = function(ev) {
       // Appending dialog to document.body to cover sidenav in docs app
@@ -444,20 +458,13 @@
     $scope.atualizarPlanta = function(doenca) {
       // $scope.plantaAtualizada = [];
       $scope.doencaAtual = doenca.data._id;
-      $scope.plantaSelecionada.pragas.push($scope.doencaAtual);
+      $scope.plantaSelecionada.doenca.push($scope.doencaAtual);
       console.log($scope.plantaAtualizada);
       atualizaServices.atualizaPlanta($scope.plantaSelecionada, $scope.plantaSelecionada._id)
       .then(function(res) {
         alert("Atualizou com sucesso!");
         console.log(res);
       });
-      // console.log('doencaAtual');
-      // console.log($scope.doencaAtual);
-      // console.log('plantaSelecionada');
-      // console.log($scope.plantaSelecionada);
-      // console.log('plantaAtualizada');
-      // console.log($scope.plantaAtualizada);
-
       $scope.plantaAtualizada = [];
     }
 
@@ -762,7 +769,6 @@
 
     $scope.init();
   });
-
   //ALTERAÇÃO
   appctrl.controller('ModificaDoencaCtrl', function($scope, $state, $mdDialog, cadastroDoencaServices, doencasServices, plantasServices, SharedObjects) {
     $scope.init = function(){
@@ -869,7 +875,6 @@
 
     $scope.init();
   });
-
   //UTILS
   appctrl.controller('MenuCtrl', function($scope, $timeout, $mdSidenav, $log, SharedObjects) {
     $scope.toggleLeft = buildDelayedToggler('left');
