@@ -37,10 +37,23 @@
       <md-grid-list md-cols-xs="2" md-cols-sm="4" md-cols-md="5" md-cols-gt-md="6" md-cols-gt-lg="8"
       md-row-height-gt-md="4:3" md-row-height="4:3"
       md-gutter="12px" md-gutter-gt-sm="8px">
-      <md-grid-tile ng-repeat="praga in plantaSelecionada">
+      <md-grid-tile ng-repeat="praga in pragasOfPlantaSelecionada">
         <img data-ng-src="{{praga.imagem[0]}}" alt="praga" layout-fill>
         <md-grid-tile-footer>
           <h3>{{praga.nome}}</h3>
+        </md-grid-tile-footer>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+  <div class="md-block gridListDynamicTiles" layout-margin flex-gt-sm ng-cloak>
+    <label>Doenças</label>
+    <md-grid-list md-cols-xs="2" md-cols-sm="4" md-cols-md="5" md-cols-gt-md="6" md-cols-gt-lg="8"
+      md-row-height-gt-md="4:3" md-row-height="4:3"
+      md-gutter="12px" md-gutter-gt-sm="8px">
+      <md-grid-tile ng-repeat="doenca in doencasOfPlantaSelecionada">
+        <img data-ng-src="{{doenca.imagem[0]}}" alt="doenca" layout-fill>
+        <md-grid-tile-footer>
+          <h3>{{doenca.nome}}</h3>
         </md-grid-tile-footer>
       </md-grid-tile>
     </md-grid-list>

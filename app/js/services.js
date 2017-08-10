@@ -138,7 +138,8 @@
     var plantas = this;
     plantas.listaPlantas = [];
     plantas.plantaDetalhada = {};
-    plantas.plantaSelecionada = [];
+    plantas.pragasOfPlantaSelecionada = [];
+    plantas.doencasOfPlantaSelecionada = [];
 
     plantas.getTodasPlantas = function(){
       var defer = $q.defer();
@@ -186,7 +187,28 @@
         $http.get('https://api.mlab.com/api/1/databases/appraga/collections/pragas?q={_id:'+pragaIdJson+'}&s={"_id": 1}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
         .then(function(response){
           angular.forEach(response.data, function(carregar){
-            plantas.plantaSelecionada.push(carregar);
+            plantas.pragasOfPlantaSelecionada.push(carregar);
+            defer.resolve(carregar);
+          });
+        }, function(response) {
+          alert("Server returns response with an error status.");
+          defer.reject(response);
+        });
+      });
+      return defer.promise;
+    }
+    plantas.getDoencasOfPlanta = function(plantaId){
+      var defer = $q.defer();
+      // var plantaIdJson = angular.toJson(plantas.listaPlantas[plantaId-1].doencas);
+      var doencaIdJson;
+      angular.forEach(plantas.listaPlantas[plantaId].doencas, function(doenca){
+        doencaIdJson = angular.toJson(doenca);
+        // console.log(doencaIdJson);
+
+        $http.get('https://api.mlab.com/api/1/databases/appraga/collections/doencas?q={_id:'+doencaIdJson+'}&s={"_id": 1}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
+        .then(function(response){
+          angular.forEach(response.data, function(carregar){
+            plantas.doencasOfPlantaSelecionada.push(carregar);
             defer.resolve(carregar);
           });
         }, function(response) {
@@ -409,7 +431,7 @@
       }else{
         var atualizaJson = angular.toJson(atualiza);
         var _idJson = angular.toJson(_id);
-        console.log("Service",atualizaJson);
+        // console.log("Service",atualizaJson);
         $http.put('https://api.mlab.com/api/1/databases/appraga/collections/plantas?q={_id:'+_idJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', atualizaJson)
         .then(function(response){
           plantas.atualizaPlanta = response;
