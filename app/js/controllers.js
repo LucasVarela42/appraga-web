@@ -462,9 +462,10 @@
         $scope.plantaSelecionada = $scope.listaPlantas[index];
         // console.log($scope.plantaSelecionada);
         // console.log($scope.listaPlantas[index]._id);
-
+        console.log($scope.plantaSelecionada);
         return $scope.listaPlantas[index]._id;
       }
+
     };
 
     $scope.atualizarPlanta = function(doenca) {
@@ -563,19 +564,24 @@
     $scope.init();
   });
 
-  appctrl.controller('CadastroPlantaCtrl', function($scope, $state, $mdDialog, cadastroPlantaServices, pragasServices, plantasServices, SharedObjects) {
+  appctrl.controller('CadastroPlantaCtrl', function($scope, $state, $mdDialog, cadastroPlantaServices, pragasServices, doencasServices, plantasServices, SharedObjects) {
     $scope.init = function(){
       $scope.getPraga();
+      $scope.getDoenca();
     };
     $scope.isLoading = false;
     $scope.form = {}; //form.cadastro - planta-cadastro.html
     $scope.imagem = {};
-    $scope.checkbox = { checked: [] };
-    $scope.cadastro = { pragas: [], imagem: [] };
+    $scope.checkbox = { pragaChecked: [], doencaChecked: [] };
+    $scope.cadastro = { pragas: [], doencas: [], imagem: [] };
     $scope.listaPragas = [];
+    $scope.listaDoencas = [];
 
     $scope.getPraga = function(){
       $scope.listaPragas = pragasServices.listaPragas;
+    };
+    $scope.getDoenca = function(){
+      $scope.listaDoencas = doencasServices.listaDoencas;
     };
     $scope.getImage = function(){
       $scope.imagem = {};
@@ -583,19 +589,35 @@
       $scope.imagem = SharedObjects.getObject();
       $scope.cadastro.imagem = $scope.imagem;
     };
-    //Watch checkbox
+    //Watch PragaChecked
     $scope.$watch(function() {
-      return $scope.checkbox.checked;
-      }, function(value) {
+      return $scope.checkbox.pragaChecked;
+    }, function(value) {
       $scope.cadastro.pragas = [];
-      angular.forEach($scope.checkbox.checked, function(boolean, index) {
+
+      angular.forEach($scope.checkbox.pragaChecked, function(boolean, index) {
         boolean && $scope.cadastro.pragas.push(getPragaByIndex(index));
+      });
+    }, true);
+    //Watch DoencaChecked
+    $scope.$watch(function() {
+      return $scope.checkbox.doencaChecked;
+      }, function(value) {
+      $scope.cadastro.doencas = [];
+
+      angular.forEach($scope.checkbox.doencaChecked, function(boolean, index) {
+        boolean && $scope.cadastro.doencas.push(getDoencaByIndex(index));
       });
     }, true);
 
     function getPragaByIndex (index) {
       if ($scope.listaPragas.indexOf(index) == -1) {
         return $scope.listaPragas[index]._id;
+      }
+    };
+    function getDoencaByIndex (index) {
+      if ($scope.listaDoencas.indexOf(index) == -1) {
+        return $scope.listaDoencas[index]._id;
       }
     };
 

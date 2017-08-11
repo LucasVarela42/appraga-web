@@ -95,19 +95,19 @@ md-list-item {
   max-height: 20px;
 }
 .button-theme .default {
-  background: #009688; 
+  background: #009688;
 }
 .button-theme .blueGrayTheme {
-  background: #607D8B; 
+  background: #607D8B;
 }
 .button-theme .blueTheme {
-  background: #2196F3; 
+  background: #2196F3;
 }
 .button-theme .brownTheme {
-  background: #795548; 
+  background: #795548;
 }
 .button-theme .pinkTheme {
-  background: #E91E63; 
+  background: #E91E63;
 }
 .drop-box-dragover {
     border: 5px dashed #009688;
@@ -132,6 +132,13 @@ md-list-item {
   background-size: cover;
   /*margin: auto;*/
   text-align: center;
+}
+img {
+	border-radius: 1px;
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+	text-align: center;
 }
 .container-md-icon {
   vertical-align: super;

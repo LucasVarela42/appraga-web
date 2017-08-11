@@ -59,7 +59,7 @@
           md-gutter="12px" md-gutter-gt-sm="8px">
           <md-grid-tile ng-repeat="praga in listaPragas">
             <md-grid-tile-header>
-              <md-checkbox aria-label="Checkbox" ng-model="checkbox.checked[$index]">
+              <md-checkbox aria-label="Checkbox" ng-model="checkbox.pragaChecked[$index]">
               </md-checkbox>
             </md-grid-tile-header>
             <img data-ng-src="{{praga.imagem[0]}}" alt="praga" layout-fill>
@@ -69,6 +69,23 @@
           </md-grid-tile>
         </md-grid-list>
       </div>
+      <div class="md-block gridListDynamicTiles" flex-gt-sm ng-cloak>
+        <label>Escolha as doencas desta planta</label>
+        <md-grid-list md-cols-xs="3" md-cols-sm="5" md-cols-md="6" md-cols-gt-md="8"
+        md-row-height-gt-md="4:3" md-row-height="4:3"
+        md-gutter="12px" md-gutter-gt-sm="8px">
+        <md-grid-tile ng-repeat="doenca in listaDoencas">
+          <md-grid-tile-header>
+            <md-checkbox aria-label="Checkbox" ng-model="checkbox.doencaChecked[$index]">
+            </md-checkbox>
+          </md-grid-tile-header>
+          <img data-ng-src="{{doenca.imagem[0]}}" alt="doenca" layout-fill>
+          <md-grid-tile-footer layout-nowrap>
+            <h3>{{doenca.nome}}</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+      </md-grid-list>
+    </div>
       <!-- <pre ng-bind="cadastro | json"></pre> -->
       <md-divider layout-margin></md-divider>
       <div layout="row" layout-align="center center">
