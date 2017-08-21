@@ -17,7 +17,7 @@
     <md-dialog-content>
       <div class="md-dialog-content" ng-cloak>
         <div class="md-block" layout="column" layout-align="center center">
-          <h2>{{planta.nome}}</h2>
+          <!-- <h2>{{planta.nome}}</h2> -->
           <!-- <div class="md-block" layout="column" layout-align="center center" ng-controller="CarouselCtrl">
           <jk-carousel
           data="dataArray"
@@ -61,14 +61,14 @@
 </div>
 </md-dialog-content>
 
-<!-- <md-dialog-actions layout="row">
+<md-dialog-actions layout="row">
   <span flex></span>
-  <md-button ng-click="answer('not useful')">
+  <!-- <md-button ng-click="answer('not useful')">
     Anterior
+  </md-button> -->
+  <md-button ng-click="altera(planta)">
+    Alterar {{planta.nome}}
   </md-button>
-  <md-button ng-click="answer('useful')">
-    Proximo
-  </md-button>
-</md-dialog-actions> -->
+</md-dialog-actions>
 </form>
 </md-dialog>

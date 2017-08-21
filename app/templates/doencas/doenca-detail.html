@@ -17,7 +17,7 @@
     <md-dialog-content>
       <div class="md-dialog-content" ng-cloak>
         <div class="md-block" layout="column" layout-align="center center">
-          <h2>{{doenca.nome}}</h2>
+          <!-- <h2>{{doenca.nome}}</h2> -->
           <!-- <div class="md-block" layout="column" layout-align="center center" ng-controller="CarouselCtrl">
           <jk-carousel
           data="dataArray"
@@ -27,7 +27,7 @@
         </jk-carousel>
       </div> -->
       <p><img data-ng-src="{{doenca.imagem[0]}}" alt="doenca" layout-fill ng-cloak></p>
-      <p>{{doenca.nomeCientifico}}</p>
+      <h3>{{doenca.nomeCientifico}}</h3>
       <p ng-bind-html="doenca.descricao | linebreak | to_trusted"></p>
     </div>
     <md-divider layout-margin></md-divider>

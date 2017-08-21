@@ -27,6 +27,16 @@
         }
       }
     })
+    .state('app.altera-planta', {
+      // cache: false,
+      url: '/altera-planta',
+      views: {
+        'altera-planta': {
+          templateUrl: 'templates/plantas/planta-altera.html',
+          controller: 'ModificaPlantaCtrl'
+        }
+      }
+    })
     .state('app.cadastro', {
       // cache: false,
       url: '/cadastros',

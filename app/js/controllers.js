@@ -234,7 +234,7 @@
     };
   });
 
-  appctrl.controller('DialogPlantaCtrl', function($scope, $mdDialog, plantasServices, pragasServices, doencasServices, index, SharedObjects) {
+  appctrl.controller('DialogPlantaCtrl', function($scope, $mdDialog, $state, plantasServices, pragasServices, doencasServices, index, SharedObjects) {
     $scope.init = function(){
       $scope.getDetalhes();
     }
@@ -257,6 +257,13 @@
         $scope.doencasOfPlantaSelecionada = plantasServices.doencasOfPlantaSelecionada;
         console.log($scope.doencasOfPlantaSelecionada);
       });
+    }
+
+    $scope.altera = function(planta) {
+      $mdDialog.hide();
+      SharedObjects.setObject(planta);
+      $state.go('app.altera-planta');
+      // console.log(planta);
     }
 
     plantasServices.plantaSelecionada = [];
@@ -816,6 +823,112 @@
     $scope.init();
   });
   //ALTERAÇÃO
+  appctrl.controller('ModificaPlantaCtrl', function($scope, $state, $mdDialog, cadastroPlantaServices, plantasServices, SharedObjects) {
+    $scope.init = function(){
+      $scope.getPlanta();
+    };
+    $scope.isLoading = false;
+    $scope.form = {}; //form.cadastro - planta-cadastro.html
+    $scope.imagem = {};
+    $scope.checkbox = { checked: [] };
+    $scope.cadastro = { plantas: [], imagem: [] };
+    // $scope.listaPlantas = [];
+    $scope.getPlanta = function(){
+      $scope.cadastro = SharedObjects.getObject();
+      console.log($scope.cadastro);
+    };
+    $scope.getImage = function(){
+      $scope.imagem = {};
+      $scope.cadastro.imagem = [];
+      $scope.imagem = SharedObjects.getObject();
+      $scope.cadastro.imagem = $scope.imagem;
+    };
+
+    $scope.$watch(function() {
+      return $scope.checkbox.checked;
+      }, function(value) {
+
+      // $scope.cadastro.plantas = [];
+      angular.forEach($scope.checkbox.checked, function(boolean, index) {
+        boolean && $scope.cadastro.plantas.push(getPlantaByIndex(index));
+      });
+    }, true);
+    function getPlantaByIndex(index) {
+      if ($scope.listaPlantas.indexOf(index) == -1) {
+        // console.log($scope.listaPlantas[index]._id);
+        return $scope.listaPlantas[index]._id;
+      }
+    };
+
+    $scope.showConfirm = function(ev) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+      .title('Você deseja cadastrar esta doença?')
+      .textContent('Posso cadastrar a doença para você, mas a decisão é sua.')
+      .ariaLabel('É um bom dia')
+      .targetEvent(ev)
+      .ok('Sim faça isso!')
+      .cancel('Não... Volte.');
+
+      $mdDialog.show(confirm).then(function() {
+        // console.log($scope.cadastro);
+        $scope.doCadastro();
+        $scope.isLoading = true;
+      }, function() {
+        $scope.isLoading = false;
+        console.log("canceled.");
+      });
+    };
+
+    $scope.doCadastro = function() {
+      $scope.cadastro.date = new Date();
+      $scope.getImage();
+      cadastroPlantaServices.postPlanta($scope.cadastro)
+      .then(function(res) {
+        // $scope.cadastro = cadastroplantaServices.cadastrarplanta;
+        $mdDialog.show(
+          $mdDialog.alert()
+          .clickOutsideToClose(true)
+          .title('Eba! cadastrou com sucesso!')
+          .textContent('Sua doença foi enviada com êxito.')
+          .ariaLabel('É um ótimo dia')
+          .ok('Confirmar')
+          .openFrom('#left')
+          .closeTo('#right')
+        );
+        $scope.reset();
+        $scope.isLoading = false;
+        // $state.reload();
+        $state.reload();
+      }, function(reason) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .clickOutsideToClose(true)
+          .title('Ops! Não foi possivel cadastrar agora :/')
+          .textContent('Houve um erro no envio do seu cadastro, tente novamente!')
+          .ariaLabel('Não é um bom dia')
+          .ok('Confirmar')
+          .openFrom('#left')
+          .closeTo('#right')
+        );
+        $scope.isLoading = false;
+      });
+      $scope.getPlanta();
+    };
+
+    $scope.reset = function () {
+      cadastroPlantaServices.cadastrarPlanta = {};
+      $scope.cadastro = {};
+      $scope.imagem = null;
+      SharedObjects.setObject(null);
+      $scope.checkbox = {};
+      $scope.form.cadastro.$setPristine();
+      $scope.form.cadastro.$setUntouched();
+    }
+
+    $scope.init();
+  });
+
   appctrl.controller('ModificaDoencaCtrl', function($scope, $state, $mdDialog, cadastroDoencaServices, doencasServices, plantasServices, SharedObjects) {
     $scope.init = function(){
       $scope.getPlanta();
