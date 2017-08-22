@@ -48,21 +48,21 @@
       var defer = $q.defer();
       var plantaIdJson;
       angular.forEach(pragas.listaPragas[pragaId].plantas, function(planta){
-        plantaIdJson = angular.toJson(planta);
+          plantaIdJson = angular.toJson(planta);
 
-        $http.get('https://api.mlab.com/api/1/databases/appraga/collections/plantas?q={_id:'+plantaIdJson+'}&s={"_id": 1}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
-        .then(function(response){
-          angular.forEach(response.data, function(carregar){
-            pragas.pragaSelecionada.push(carregar);
-            defer.resolve(response);
+          $http.get('https://api.mlab.com/api/1/databases/appraga/collections/plantas?q={_id:'+plantaIdJson+'}&s={"_id": 1}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff')
+          .then(function(response){
+            angular.forEach(response.data, function(carregar){
+              pragas.pragaSelecionada.push(carregar);
+              defer.resolve(response);
+            });
+          }, function(response) {
+            alert("Server returns response with an error status.");
+            defer.reject(response);
           });
-        }, function(response) {
-          alert("Server returns response with an error status.");
-          defer.reject(response);
         });
-      });
-      return defer.promise;
-    }
+        return defer.promise;
+      }
 
     // console.log("Chegou pragasServices",pragas);
     return pragas;

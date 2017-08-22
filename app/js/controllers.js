@@ -266,13 +266,15 @@
       // console.log(planta);
     }
 
-    plantasServices.plantaSelecionada = [];
     plantasServices.plantaDetalhada = {};
-    $scope.init();
+    plantasServices.plantaSelecionada = [];
+    plantasServices.pragasOfPlantaSelecionada = [];
+    plantasServices.doencasOfPlantaSelecionada = [];
 
     $scope.hide = function() {
       $mdDialog.hide();
     };
+    $scope.init();
   });
 
   appctrl.controller('DialogManejoCtrl', function($scope, $mdDialog, manejosServices, plantasServices, pragasServices, index, SharedObjects) {
@@ -823,19 +825,22 @@
     $scope.init();
   });
   //ALTERAÇÃO
-  appctrl.controller('ModificaPlantaCtrl', function($scope, $state, $mdDialog, cadastroPlantaServices, plantasServices, SharedObjects) {
+  appctrl.controller('ModificaPlantaCtrl', function($scope, $state, $mdDialog, atualizaServices, SharedObjects) {
     $scope.init = function(){
       $scope.getPlanta();
     };
     $scope.isLoading = false;
     $scope.form = {}; //form.cadastro - planta-cadastro.html
     $scope.imagem = {};
-    $scope.checkbox = { checked: [] };
-    $scope.cadastro = { plantas: [], imagem: [] };
+    $scope.checkbox = { pragaChecked: [], doencaChecked: [] };
+    $scope.cadastro = { pragas: [], doencas: [], imagem: [] };
     // $scope.listaPlantas = [];
     $scope.getPlanta = function(){
       $scope.cadastro = SharedObjects.getObject();
-      console.log($scope.cadastro);
+      // console.log($scope.cadastro._id);
+      $scope.checkbox.pragaChecked = $scope.cadastro.pragas;
+      $scope.checkbox.doencaChecked = $scope.cadastro.doencas;
+      // console.log($scope.checkbox);
     };
     $scope.getImage = function(){
       $scope.imagem = {};
@@ -844,27 +849,43 @@
       $scope.cadastro.imagem = $scope.imagem;
     };
 
+    //Watch PragaChecked
     $scope.$watch(function() {
-      return $scope.checkbox.checked;
-      }, function(value) {
+      return $scope.checkbox.pragaChecked;
+    }, function(value) {
+      $scope.cadastro.pragas = [];
 
-      // $scope.cadastro.plantas = [];
-      angular.forEach($scope.checkbox.checked, function(boolean, index) {
-        boolean && $scope.cadastro.plantas.push(getPlantaByIndex(index));
+      angular.forEach($scope.checkbox.pragaChecked, function(boolean, index) {
+        boolean && $scope.cadastro.pragas.push(getPragaByIndex(index));
       });
     }, true);
-    function getPlantaByIndex(index) {
-      if ($scope.listaPlantas.indexOf(index) == -1) {
-        // console.log($scope.listaPlantas[index]._id);
-        return $scope.listaPlantas[index]._id;
+    //Watch DoencaChecked
+    $scope.$watch(function() {
+      return $scope.checkbox.doencaChecked;
+      }, function(value) {
+      $scope.cadastro.doencas = [];
+
+      angular.forEach($scope.checkbox.doencaChecked, function(boolean, index) {
+        boolean && $scope.cadastro.doencas.push(getDoencaByIndex(index));
+      });
+    }, true);
+
+    function getPragaByIndex (index) {
+      if ($scope.listaPragas.indexOf(index) == -1) {
+        return $scope.listaPragas[index]._id;
+      }
+    };
+    function getDoencaByIndex (index) {
+      if ($scope.listaDoencas.indexOf(index) == -1) {
+        return $scope.listaDoencas[index]._id;
       }
     };
 
     $scope.showConfirm = function(ev) {
       // Appending dialog to document.body to cover sidenav in docs app
       var confirm = $mdDialog.confirm()
-      .title('Você deseja cadastrar esta doença?')
-      .textContent('Posso cadastrar a doença para você, mas a decisão é sua.')
+      .title('Você deseja atualizar esta planta?')
+      .textContent('Posso alterar a planta para você, mas a decisão é sua.')
       .ariaLabel('É um bom dia')
       .targetEvent(ev)
       .ok('Sim faça isso!')
@@ -883,14 +904,14 @@
     $scope.doCadastro = function() {
       $scope.cadastro.date = new Date();
       $scope.getImage();
-      cadastroPlantaServices.postPlanta($scope.cadastro)
+      atualizaServices.atualizaPlanta($scope.cadastro, $scope.cadastro._id)
       .then(function(res) {
         // $scope.cadastro = cadastroplantaServices.cadastrarplanta;
         $mdDialog.show(
           $mdDialog.alert()
           .clickOutsideToClose(true)
-          .title('Eba! cadastrou com sucesso!')
-          .textContent('Sua doença foi enviada com êxito.')
+          .title('Eba! atualizou com sucesso!')
+          .textContent('Sua planta foi alterada com sucesso.')
           .ariaLabel('É um ótimo dia')
           .ok('Confirmar')
           .openFrom('#left')
@@ -900,12 +921,13 @@
         $scope.isLoading = false;
         // $state.reload();
         $state.reload();
+        $state.go('app.plantas');
       }, function(reason) {
         $mdDialog.show(
           $mdDialog.alert()
           .clickOutsideToClose(true)
-          .title('Ops! Não foi possivel cadastrar agora :/')
-          .textContent('Houve um erro no envio do seu cadastro, tente novamente!')
+          .title('Ops! Não foi possivel atualizar agora :/')
+          .textContent('Houve um erro no envio da sua atualização, tente novamente!')
           .ariaLabel('Não é um bom dia')
           .ok('Confirmar')
           .openFrom('#left')
@@ -913,11 +935,12 @@
         );
         $scope.isLoading = false;
       });
-      $scope.getPlanta();
+
+      // $scope.getPlanta();
     };
 
     $scope.reset = function () {
-      cadastroPlantaServices.cadastrarPlanta = {};
+      atualizaServices.atualizaPlanta = {};
       $scope.cadastro = {};
       $scope.imagem = null;
       SharedObjects.setObject(null);
