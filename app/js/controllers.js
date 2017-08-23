@@ -830,7 +830,7 @@
       $scope.getPlanta();
     };
     $scope.isLoading = false;
-    $scope.form = {}; //form.cadastro - planta-cadastro.html
+    $scope.form = {}; //form.cadastro - planta-alteracao.html
     $scope.imagem = {};
     $scope.checkbox = { pragaChecked: [], doencaChecked: [] };
     $scope.cadastro = { pragas: [], doencas: [], imagem: [] };
@@ -852,12 +852,12 @@
     //Watch PragaChecked
     $scope.$watch(function() {
       return $scope.checkbox.pragaChecked;
-    }, function(value) {
-      $scope.cadastro.pragas = [];
+      }, function(value) {
+        $scope.cadastro.pragas = [];
 
-      angular.forEach($scope.checkbox.pragaChecked, function(boolean, index) {
-        boolean && $scope.cadastro.pragas.push(getPragaByIndex(index));
-      });
+        angular.forEach($scope.checkbox.pragaChecked, function(boolean, index) {
+          boolean && $scope.cadastro.pragas.push(getPragaByIndex(index));
+        });
     }, true);
     //Watch DoencaChecked
     $scope.$watch(function() {
@@ -885,7 +885,7 @@
       // Appending dialog to document.body to cover sidenav in docs app
       var confirm = $mdDialog.confirm()
       .title('Você deseja atualizar esta planta?')
-      .textContent('Posso alterar a planta para você, mas a decisão é sua.')
+      .textContent('Está planta será atualizada, deseja realmente fazer isso?.')
       .ariaLabel('É um bom dia')
       .targetEvent(ev)
       .ok('Sim faça isso!')
@@ -910,7 +910,7 @@
         $mdDialog.show(
           $mdDialog.alert()
           .clickOutsideToClose(true)
-          .title('Eba! atualizou com sucesso!')
+          .title('Yey! atualizou com sucesso!')
           .textContent('Sua planta foi alterada com sucesso.')
           .ariaLabel('É um ótimo dia')
           .ok('Confirmar')
@@ -926,7 +926,7 @@
         $mdDialog.show(
           $mdDialog.alert()
           .clickOutsideToClose(true)
-          .title('Ops! Não foi possivel atualizar agora :/')
+          .title('Epa! Não foi possivel atualizar agora :/')
           .textContent('Houve um erro no envio da sua atualização, tente novamente!')
           .ariaLabel('Não é um bom dia')
           .ok('Confirmar')

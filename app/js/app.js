@@ -32,7 +32,7 @@
       url: '/altera-planta',
       views: {
         'altera-planta': {
-          templateUrl: 'templates/plantas/planta-altera.html',
+          templateUrl: 'templates/plantas/planta-alteracao.html',
           controller: 'ModificaPlantaCtrl'
         }
       }

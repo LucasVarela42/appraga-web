@@ -1,7 +1,7 @@
 <div layout="column" layout-fill ng-cloak class="md-inline-form">
   <md-content layout-gt-sm="column" layout-gt-md="column" layout="column" layout-padding>
     <form name="form.cadastro" ng-submit="upload(); showConfirm($event)" ng-controller="PictureCtrl">
-      <div>
+      <div >
         <div layout="row" layout-xs="column">
           <div flex="75" flex-xs="100" layout-wrap>
             <md-input-container class="md-block" flex-gt-sm layout="row">
@@ -12,9 +12,9 @@
               </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm layout="row">
-              <label>Resumo</label>
-              <textarea name="resumo" required md-asterisk ng-model="cadastro.resumo" rows="2" md-select-on-focus></textarea>
-              <div ng-messages="form.cadastro.resumo.$error">
+              <label>Nome científico</label>
+              <textarea name="nomeCientifico" required md-asterisk ng-model="cadastro.cientifico" rows="2" md-select-on-focus></textarea>
+              <div ng-messages="form.cadastro.nomeCientifico.$error">
                 <div ng-message="required">Isso é obrigatório.</div>
               </div>
             </md-input-container>
@@ -31,19 +31,8 @@
               accept="image/*"
               ngf-pattern="'image/*'"
               ng-model="cadastro.imagem[0]">
-              <!-- <ng-md-icon class="container-md-icon" ng-if="!cadastro.imagem[0]" icon="system_update_alt" size="48" style="fill: #DDD"></ng-md-icon>
-              <img class="photo-img" ngf-src="cadastro.imagem[0]"/>
-              <div ng-if="!ngf-no-file-drop; !cadastro.imagem[0]">
-                Solte uma imagem ou clique para fazer o upload.</div>
-                <div ngf-no-file-drop ng-if="!cadastro.imagem[0]">
-                  Drag/Drop não é suportado por este navegador. Clique para fazer o upload.</div>
-                </div>
-                <div ng-messages="form.cadastro.imagem.$error">
-                  <div ng-message="required">Imagem é obrigatório*</div>
-                </div> -->
               <ng-md-icon class="container-md-icon" ng-if="!image.originalImage[0]" icon="system_update_alt" size="48" style="fill: #DDD"></ng-md-icon>
               <img class="photo-img" ngf-src="!image.originalImage[0].$error && image.originalImage[0]"/>
-
               <div ng-if="!ngf-no-file-drop; !image.originalImage[0]">
                 Solte uma imagem ou clique para fazer o upload.</div>
                 <div ngf-no-file-drop ng-if="!image.originalImage[0]">
@@ -62,48 +51,40 @@
               <div ng-message="required">Isso é obrigatório.</div>
             </div>
           </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm layout="row">
+            <label>Métodos de manejo</label>
+            <textarea name="descricaoManejo" required md-asterisk ng-model="cadastro.descricaoManejo" rows="5" md-select-on-focus></textarea>
+            <div ng-messages="form.cadastro.descricaoManejo.$error">
+              <div ng-message="required">Isso é obrigatório.</div>
+            </div>
+          </md-input-container>
+
         </div>
         <div class="md-block gridListDynamicTiles" flex-gt-sm ng-cloak>
-          <label>Escolha as pragas desta planta</label>
+          <label>Escolha as plantas que esta praga afeta</label>
           <md-grid-list md-cols-xs="3" md-cols-sm="5" md-cols-md="6" md-cols-gt-md="8"
           md-row-height-gt-md="4:3" md-row-height="4:3"
           md-gutter="12px" md-gutter-gt-sm="8px">
-          <md-grid-tile ng-repeat="praga in listaPragas">
+          <md-grid-tile ng-repeat="planta in listaPlantas">
             <md-grid-tile-header>
-              <md-checkbox aria-label="Checkbox" ng-model="checkbox.pragaChecked[$index]" ng-checked='checkbox.pragaChecked[$index]'>
+              <md-checkbox aria-label="Checkbox" ng-model="checkbox.checked[$index]" ng-checked='checkbox.checked[$index]'>
               </md-checkbox>
             </md-grid-tile-header>
-            <img data-ng-src="{{praga.imagem[0]}}" alt="praga" layout-fill>
+            <img data-ng-src="{{planta.imagem[0]}}" alt="planta" layout-fill>
             <md-grid-tile-footer layout-nowrap>
-              <h3>{{praga.nome}}</h3>
+              <h3>{{planta.nome}}</h3>
             </md-grid-tile-footer>
           </md-grid-tile>
         </md-grid-list>
       </div>
-      <div class="md-block gridListDynamicTiles" flex-gt-sm ng-cloak>
-        <label>Escolha as doencas desta planta</label>
-        <md-grid-list md-cols-xs="3" md-cols-sm="5" md-cols-md="6" md-cols-gt-md="8"
-        md-row-height-gt-md="4:3" md-row-height="4:3"
-        md-gutter="12px" md-gutter-gt-sm="8px">
-        <md-grid-tile ng-repeat="doenca in listaDoencas">
-          <md-grid-tile-header>
-            <md-checkbox aria-label="Checkbox" ng-model="checkbox.doencaChecked[$index]" ng-checked='checkbox.doencaChecked[$index]'>
-            </md-checkbox>
-          </md-grid-tile-header>
-          <img data-ng-src="{{doenca.imagem[0]}}" alt="doenca" layout-fill>
-          <md-grid-tile-footer layout-nowrap>
-            <h3>{{doenca.nome}}</h3>
-          </md-grid-tile-footer>
-        </md-grid-tile>
-      </md-grid-list>
-    </div>
       <!-- <pre ng-bind="cadastro | json"></pre> -->
       <md-divider layout-margin></md-divider>
       <div layout="row" layout-align="center center">
         <div flex="noshrink" layout="column" layout-margin layout-align="center center" ng-show="isLoading">
           <md-progress-circular md-mode="indeterminate" md-diameter="36"></md-progress-circular>
         </div>
-        <md-button ng-show="!isLoading" ng-cloak type="submit" class="md-accent md-raised md-hue-2" ng-disabled="form.cadastro.$invalid" ng-click="reset()">Cadastrar</md-button>
+        <md-button ng-show="!isLoading" ng-cloak type="submit" class="md-accent md-raised md-hue-2" ng-disabled="form.cadastro.$invalid" ng-click="reset()">Alterar</md-button>
       </div>
     </form>
   </md-content>
