@@ -97,6 +97,16 @@
         }
       }
     })
+    .state('app.altera-praga', {
+      // cache: false,
+      url: '/altera-praga',
+      views: {
+        'altera-praga': {
+          templateUrl: 'templates/pragas/praga-alteracao.html',
+          controller: 'ModificaPragaCtrl'
+        }
+      }
+    })
     .state('app.doencas', {
       // cache: false,
       // url: '/doencas/:plantaId',
@@ -108,6 +118,16 @@
         }
       }
     })
+    .state('app.altera-doenca', {
+      // cache: false,
+      url: '/altera-doenca',
+      views: {
+        'altera-doenca': {
+          templateUrl: 'templates/doencas/doenca-alteracao.html',
+          controller: 'ModificaDoencaCtrl'
+        }
+      }
+    })
     .state('app.manejos', {
       // cache: false,
       // url: '/manejos/:pragaId',
@@ -116,6 +136,16 @@
         'manejos': {
           templateUrl: 'templates/manejos/manejos.html',
           // controller: 'AppragaCtrl'
+        }
+      }
+    })
+    .state('app.altera-manejo', {
+      // cache: false,
+      url: '/altera-manejo',
+      views: {
+        'altera-manejo': {
+          templateUrl: 'templates/manejos/manejo-alteracao.html',
+          controller: 'ModificaManejoCtrl'
         }
       }
     });

@@ -403,26 +403,53 @@
   });
 
   app.service('atualizaServices', function($q, $http){
-    var plantas = this;
-    plantas.atualizaPlanta = {};
+    var appraga = this;
+    appraga.atualizaPraga = {};
+    appraga.atualizaDoenca = {};
+    appraga.atualizaPlanta = {};
+    appraga.atualizaManejo = {};
 
-    // doencas.putDoenca = function(cadastro){
-    //   var defer = $q.defer();
-    //   if (Object.keys(cadastro).length == 0 ) {
-    //     alert("Empty Object!")
-    //   }else{
-    //     var cadastroJson = angular.toJson(cadastro);
-    //     $http.put('https://api.mlab.com/api/1/databases/appraga/collections/doencas?apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', cadastroJson)
-    //     .then(function(response){
-    //       doencas.modificarDoenca = response;
-    //       defer.resolve(response);
-    //       // console.log(doencas.cadastrardoenca);
-    //     });
-    //   }
-    //   return defer.promise;
-    // }
+    appraga.atualizaPraga = function(atualiza, _id){
+      console.log(atualiza);
+      console.log(_id);
+      var defer = $q.defer();
+      if (Object.keys(atualiza).length == 0 || _id == '') {
+        alert("Empty Object!")
+      }else{
+        var atualizaJson = angular.toJson(atualiza);
+        var _idJson = angular.toJson(_id);
+        // console.log("Service",atualizaJson);
+        $http.put('https://api.mlab.com/api/1/databases/appraga/collections/pragas?q={_id:'+_idJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', atualizaJson)
+        .then(function(response){
+          appraga.atualizaPraga = response;
+          defer.resolve(response);
+          // console.log(pragas.atualizaPraga);
+        });
+      }
+      return defer.promise;
+    }
 
-    plantas.atualizaPlanta = function(atualiza, _id){
+    appraga.atualizaDoenca = function(atualiza, _id){
+      console.log(atualiza);
+      console.log(_id);
+      var defer = $q.defer();
+      if (Object.keys(atualiza).length == 0 || _id == '') {
+        alert("Empty Object!")
+      }else{
+        var atualizaJson = angular.toJson(atualiza);
+        var _idJson = angular.toJson(_id);
+        // console.log("Service",atualizaJson);
+        $http.put('https://api.mlab.com/api/1/databases/appraga/collections/doencas?q={_id:'+_idJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', atualizaJson)
+        .then(function(response){
+          appraga.atualizaDoenca = response;
+          defer.resolve(response);
+          // console.log(doencas.atualizaDoenca);
+        });
+      }
+      return defer.promise;
+    }
+
+    appraga.atualizaPlanta = function(atualiza, _id){
       console.log(atualiza);
       console.log(_id);
       var defer = $q.defer();
@@ -434,7 +461,7 @@
         // console.log("Service",atualizaJson);
         $http.put('https://api.mlab.com/api/1/databases/appraga/collections/plantas?q={_id:'+_idJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', atualizaJson)
         .then(function(response){
-          plantas.atualizaPlanta = response;
+          appraga.atualizaPlanta = response;
           defer.resolve(response);
           // console.log(plantas.atualizaPlanta);
         });
@@ -442,10 +469,28 @@
       return defer.promise;
     }
 
+    appraga.atualizaManejo = function(atualiza, _id){
+      console.log(atualiza);
+      console.log(_id);
+      var defer = $q.defer();
+      if (Object.keys(atualiza).length == 0 || _id == '') {
+        alert("Empty Object!")
+      }else{
+        var atualizaJson = angular.toJson(atualiza);
+        var _idJson = angular.toJson(_id);
+        // console.log("Service",atualizaJson);
+        $http.put('https://api.mlab.com/api/1/databases/appraga/collections/manejos?q={_id:'+_idJson+'}&apiKey=XRSrAQkYZvpYR1cLVVbR5rknsPC0hZff', atualizaJson)
+        .then(function(response){
+          appraga.atualizaManejo = response;
+          defer.resolve(response);
+          // console.log(manejos.atualizaManejo);
+        });
+      }
+      return defer.promise;
+    }
     // console.log(doencas);
-    return plantas;
+    return appraga;
   });
-
 
   // app.service('removerPlantaServices', function($q, $http){
   //   var plantas = this;
