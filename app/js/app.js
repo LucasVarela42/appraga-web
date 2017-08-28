@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var app = angular.module('starter', ['ngAnimate', 'ngMaterial', 'ngMessages',
-  'ngMdIcons', 'ui.router',  'ngFileUpload', 'base64',
+  'ngMdIcons', 'ui.router',  'ngFileUpload', 'base64', 'angular-carousel',
   'starter.filters', 'starter.controllers', 'starter.services']);
 
   app.run(function() { });

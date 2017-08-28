@@ -1095,10 +1095,10 @@
     $scope.checkbox = { checked: [] };
     $scope.cadastro = { plantas: [], imagem: [] };
     $scope.plantaSelecionada = [];
-
+    $scope.plantasChecadas = {};
     $scope.getPraga = function(){
       $scope.cadastro = SharedObjects.getObject();
-      $scope.checkbox.checked = $scope.cadastro.plantas;
+      $scope.plantasChecadas = $scope.cadastro.plantas;
     };
     $scope.getImage = function(){
       $scope.imagem = {};
@@ -1118,7 +1118,6 @@
     function getPlantaByIndex(index) {
       if ($scope.listaPlantas.indexOf(index) == -1) {
         $scope.plantaSelecionada = $scope.listaPlantas[index];
-        // console.log($scope.plantaSelecionada);
         return $scope.listaPlantas[index]._id;
       }
     };

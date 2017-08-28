@@ -68,7 +68,7 @@
           md-gutter="12px" md-gutter-gt-sm="8px">
           <md-grid-tile ng-repeat="planta in listaPlantas">
             <md-grid-tile-header>
-              <md-checkbox aria-label="Checkbox" ng-model="checkbox.checked[$index]" ng-checked='checkbox.checked[$index]'>
+              <md-checkbox aria-label="Checkbox" ng-model="checkbox.checked[$index]" >
               </md-checkbox>
             </md-grid-tile-header>
             <img data-ng-src="{{planta.imagem[0]}}" alt="planta" layout-fill>
@@ -78,7 +78,8 @@
           </md-grid-tile>
         </md-grid-list>
       </div>
-      <!-- <pre ng-bind="cadastro | json"></pre> -->
+      <pre ng-bind="cadastro | json"></pre>
+      <!-- <pre ng-bind="checkbox | json"></pre> -->
       <md-divider layout-margin></md-divider>
       <div layout="row" layout-align="center center">
         <div flex="noshrink" layout="column" layout-margin layout-align="center center" ng-show="isLoading">
