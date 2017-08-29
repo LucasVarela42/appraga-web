@@ -140,6 +140,11 @@ img {
 	width: 100%;
 	text-align: center;
 }
+
+.layer {
+  width: 380px;
+}
+
 .container-md-icon {
   vertical-align: super;
   height: 48px;

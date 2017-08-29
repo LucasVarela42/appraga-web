@@ -16,23 +16,10 @@
 
     <md-dialog-content>
       <div class="md-dialog-content" ng-cloak>
-        <div class="md-block" layout="column" layout-align="center center">
-          <!-- <h2>{{praga.nome}}</h2> -->
-          <!-- <div  rn-carousel class="image" ng-repeat="imagem in praga.imagem"> -->
-          <md-grid-list md-cols-xs="2" md-cols-sm="4" md-cols-md="5" md-cols-gt-md="6" md-cols-gt-lg="8"
-          md-row-height-gt-md="4:3" md-row-height="4:3"
-          md-gutter="12px" md-gutter-gt-sm="8px">
-               <md-grid-tile ng-repeat="imagem in praga.imagem">
-                <!-- <div> -->
-                  <img data-ng-src="{{imagem}}" alt="praga" layout-fill>
-                <!-- </div> -->
-                <md-grid-tile-footer layout-nowrap>
-                  <h3 >{{praga.nome}}</h3>
-                </md-grid-tile-footer>
-            </md-grid-tile>
-          </md-grid-list>
-            <!-- <p><img class="layer" data-ng-src="{{imagem}}" alt="praga" layout-fill ng-cloak></p> -->
-          <!-- </div> -->
+        <div class="md-block" layout="column" layout-align="center center" >
+          <div ng-repeat="imagem in praga.imagem">
+            <p><img class="layer" data-ng-src="{{imagem}}" alt="praga"  ng-cloak></p>
+          </div>
 
           <p>{{praga.cientifico}}</p>
           <p ng-bind-html="praga.descricao | linebreak | to_trusted"></p>
