@@ -1,0 +1,26 @@
+<div layout="column" layout-fill ng-cloak>
+  <md-content layout-fill >
+    <md-tabs md-dynamic-height md-border-bottom md-center-tabs md-selected="selectedIndex" md-autoselect>
+      <md-tab flex label="praga" ui-sref="app.cadastro.praga">
+        <md-content class="md-padding" >
+          <div  ui-view="cadastro-praga" md-whiteframe="1" flex layout-fill></div>
+        </md-content>
+      </md-tab>
+      <md-tab flex label="doença" ui-sref="app.cadastro.doenca">
+        <md-content class="md-padding" >
+          <div  ui-view="cadastro-doenca" md-whiteframe="1" flex layout-fill></div>
+        </md-content>
+      </md-tab>
+      <md-tab flex label="planta" ui-sref="app.cadastro.planta">
+        <md-content class="md-padding">
+          <div ui-view="cadastro-planta" md-whiteframe="1" flex layout-fill></div>
+        </md-content>
+      </md-tab>
+      <!-- <md-tab flex label="manejo" ui-sref="app.cadastro.manejo">
+        <md-content class="md-padding">
+          <div ui-view="cadastro-manejo" md-whiteframe="1" flex layout-fill></div>
+        </md-content>
+      </md-tab> -->
+    </md-tabs>
+  </md-content>
+</div>
